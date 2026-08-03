@@ -1,5 +1,4 @@
-﻿using Substrait.Core;
-using Substrait.Relation;
+﻿using Substrait.Core.Relation;
 
 namespace Substrait.Core.Tests;
 
