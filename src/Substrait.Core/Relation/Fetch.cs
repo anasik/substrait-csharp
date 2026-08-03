@@ -1,9 +1,8 @@
-﻿namespace Substrait.Relation
+﻿namespace Substrait.Core.Relation;
+
+/// <summary>
+/// The FETCH relational operator representing LIMIT or TOP semantics, <see cref="Protobuf.FetchRel"/>
+/// </summary>
+public class Fetch : Rel
 {
-  /// <summary>
-  /// The FETCH relational operator representing LIMIT or TOP semantics, <see cref="Protobuf.FetchRel"/>
-  /// </summary>
-  public class Fetch : Rel
-  {
-  }
 }
