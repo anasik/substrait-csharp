@@ -7,53 +7,61 @@ namespace Substrait.Core.Type;
 
 public interface ITypeVisitor<TResult>
 {
-  TResult Visit(Bool type);
+  /// <summary>
+  /// Invoked for any type kind the implementation does not handle explicitly. Override to supply a
+  /// default result, or to throw a domain-specific error.
+  /// </summary>
+  TResult VisitFallback(TypeClass type) =>
+    throw new NotSupportedException(
+      $"{GetType().Name} does not handle type kind '{type.GetType().Name}'.");
 
-  TResult Visit(I8 type);
+  TResult Visit(Bool type) => VisitFallback(type);
 
-  TResult Visit(I16 type);
+  TResult Visit(I8 type) => VisitFallback(type);
 
-  TResult Visit(I32 type);
+  TResult Visit(I16 type) => VisitFallback(type);
 
-  TResult Visit(I64 type);
+  TResult Visit(I32 type) => VisitFallback(type);
 
-  TResult Visit(Fp32 type);
+  TResult Visit(I64 type) => VisitFallback(type);
 
-  TResult Visit(Fp64 type);
+  TResult Visit(Fp32 type) => VisitFallback(type);
 
-  TResult Visit(String type);
+  TResult Visit(Fp64 type) => VisitFallback(type);
 
-  TResult Visit(Binary type);
+  TResult Visit(String type) => VisitFallback(type);
 
-  TResult Visit(Date type);
+  TResult Visit(Binary type) => VisitFallback(type);
 
-  TResult Visit(IntervalYear type);
+  TResult Visit(Date type) => VisitFallback(type);
 
-  TResult Visit(IntervalDay type);
+  TResult Visit(IntervalYear type) => VisitFallback(type);
 
-  TResult Visit(IntervalCompound type);
+  TResult Visit(IntervalDay type) => VisitFallback(type);
 
-  TResult Visit(Uuid type);
+  TResult Visit(IntervalCompound type) => VisitFallback(type);
 
-  TResult Visit(FixedChar type);
+  TResult Visit(Uuid type) => VisitFallback(type);
 
-  TResult Visit(VarChar type);
+  TResult Visit(FixedChar type) => VisitFallback(type);
 
-  TResult Visit(FixedBinary type);
+  TResult Visit(VarChar type) => VisitFallback(type);
 
-  TResult Visit(Decimal type);
+  TResult Visit(FixedBinary type) => VisitFallback(type);
 
-  TResult Visit(PrecisionTime type);
+  TResult Visit(Decimal type) => VisitFallback(type);
 
-  TResult Visit(PrecisionTimestamp type);
+  TResult Visit(PrecisionTime type) => VisitFallback(type);
 
-  TResult Visit(PrecisionTimestampTz type);
+  TResult Visit(PrecisionTimestamp type) => VisitFallback(type);
 
-  TResult Visit(Func type);
+  TResult Visit(PrecisionTimestampTz type) => VisitFallback(type);
 
-  TResult Visit(Struct type);
+  TResult Visit(Func type) => VisitFallback(type);
 
-  TResult Visit(List type);
+  TResult Visit(Struct type) => VisitFallback(type);
 
-  TResult Visit(Map type);
+  TResult Visit(List type) => VisitFallback(type);
+
+  TResult Visit(Map type) => VisitFallback(type);
 }
