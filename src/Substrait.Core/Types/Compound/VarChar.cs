@@ -1,6 +1,6 @@
-﻿namespace Substrait.Core.Type.Compound;
+﻿namespace Substrait.Core.Types.Compound;
 
-public sealed record FixedBinary : TypeClass
+public sealed record VarChar : TypeClass
 {
   public required int Length { get; init; }
 

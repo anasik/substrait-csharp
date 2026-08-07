@@ -1,6 +1,6 @@
-﻿namespace Substrait.Core.Type.Compound;
+﻿namespace Substrait.Core.Types.Compound;
 
-public sealed record PrecisionTimestampTz : TypeClass
+public sealed record PrecisionTime : TypeClass
 {
   public required int Precision { get; init; }
 

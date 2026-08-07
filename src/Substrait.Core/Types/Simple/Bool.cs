@@ -1,6 +1,6 @@
-﻿namespace Substrait.Core.Type.Simple;
+﻿namespace Substrait.Core.Types.Simple;
 
-public sealed record Fp64 : TypeClass
+public sealed record Bool : TypeClass
 {
   public override TResult Accept<TResult>(ITypeVisitor<TResult> visitor) => visitor.Visit(this);
 }
