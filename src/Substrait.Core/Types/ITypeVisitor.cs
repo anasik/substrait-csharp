@@ -1,9 +1,9 @@
-﻿using Substrait.Core.Type.Compound;
-using Substrait.Core.Type.Simple;
-using Decimal = Substrait.Core.Type.Compound.Decimal;
-using String = Substrait.Core.Type.Simple.String;
+﻿using Substrait.Core.Types.Compound;
+using Substrait.Core.Types.Simple;
+using Decimal = Substrait.Core.Types.Compound.Decimal;
+using String = Substrait.Core.Types.Simple.String;
 
-namespace Substrait.Core.Type;
+namespace Substrait.Core.Types;
 
 public interface ITypeVisitor<TResult>
 {

@@ -1,4 +1,4 @@
-﻿namespace Substrait.Core.Type;
+﻿namespace Substrait.Core.Types;
 
 public abstract record TypeClass
 {

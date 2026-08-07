@@ -1,6 +1,6 @@
-﻿namespace Substrait.Core.Type.Compound;
+﻿namespace Substrait.Core.Types.Compound;
 
-public sealed record IntervalDay : TypeClass
+public sealed record PrecisionTimestamp : TypeClass
 {
   public required int Precision { get; init; }
 
