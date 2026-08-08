@@ -2,17 +2,24 @@
 
 public sealed record Func : TypeClass
 {
-  public required IReadOnlyList<TypeClass> ParameterTypes { get; init; }
+  private readonly TypeClass[] _parameterTypes = [];
+
+  public required IReadOnlyList<TypeClass> ParameterTypes
+  {
+    get => _parameterTypes;
+    init => _parameterTypes = value.ToArray();
+  }
 
   public required TypeClass ReturnType { get; init; }
 
   public override TResult Accept<TResult>(ITypeVisitor<TResult> visitor) => visitor.Visit(this);
 
   public bool Equals(Func? other) =>
-    other is not null
-    && Nullable == other.Nullable
-    && ReturnType.Equals(other.ReturnType)
-    && ParameterTypes.SequenceEqual(other.ParameterTypes);
+    ReferenceEquals(this, other)
+    || (other is not null
+        && Nullable == other.Nullable
+        && ReturnType == other.ReturnType
+        && ParameterTypes.SequenceEqual(other.ParameterTypes));
 
   public override int GetHashCode()
   {
