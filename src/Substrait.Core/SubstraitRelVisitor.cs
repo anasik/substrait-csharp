@@ -11,12 +11,9 @@ public abstract class SubstraitRelVisitor
   /// <summary>
   /// Visit relational operator of type AGGREGATE
   /// </summary>
-  public void Visit(Aggregate aggregate)
+  public virtual void Visit(Aggregate aggregate)
   {
-    if (aggregate is null)
-    {
-      throw new ArgumentNullException(nameof(aggregate));
-    }
+    ArgumentNullException.ThrowIfNull(aggregate);
 
     Fallback(aggregate);
   }
@@ -24,12 +21,9 @@ public abstract class SubstraitRelVisitor
   /// <summary>
   /// Visit relational operator of type FETCH
   /// </summary>
-  public void Visit(Fetch fetch)
+  public virtual void Visit(Fetch fetch)
   {
-    if (fetch is null)
-    {
-      throw new ArgumentNullException(nameof(fetch));
-    }
+    ArgumentNullException.ThrowIfNull(fetch);
 
     Fallback(fetch);
   }
@@ -37,12 +31,9 @@ public abstract class SubstraitRelVisitor
   /// <summary>
   /// Visit relational operator of type FILTER
   /// </summary>
-  public void Visit(Filter filter)
+  public virtual void Visit(Filter filter)
   {
-    if (filter is null)
-    {
-      throw new ArgumentNullException(nameof(filter));
-    }
+    ArgumentNullException.ThrowIfNull(filter);
 
     Fallback(filter);
   }
@@ -50,12 +41,9 @@ public abstract class SubstraitRelVisitor
   /// <summary>
   /// Visit relational operator of type JOIN
   /// </summary>
-  public void Visit(Join join)
+  public virtual void Visit(Join join)
   {
-    if (join is null)
-    {
-      throw new ArgumentNullException(nameof(join));
-    }
+    ArgumentNullException.ThrowIfNull(join);
 
     Fallback(join);
   }
@@ -63,12 +51,9 @@ public abstract class SubstraitRelVisitor
   /// <summary>
   /// Visit relational operator of type PROJECT
   /// </summary>
-  public void Visit(Project project)
+  public virtual void Visit(Project project)
   {
-    if (project is null)
-    {
-      throw new ArgumentNullException(nameof(project));
-    }
+    ArgumentNullException.ThrowIfNull(project);
 
     Fallback(project);
   }
@@ -76,12 +61,9 @@ public abstract class SubstraitRelVisitor
   /// <summary>
   /// Visit relational operator of type READ
   /// </summary>
-  public void Visit(Read read)
+  public virtual void Visit(Read read)
   {
-    if (read is null)
-    {
-      throw new ArgumentNullException(nameof(read));
-    }
+    ArgumentNullException.ThrowIfNull(read);
 
     Fallback(read);
   }
@@ -89,18 +71,22 @@ public abstract class SubstraitRelVisitor
   /// <summary>
   /// Visit relational operator of type SORT
   /// </summary>
-  public void Visit(Sort sort)
+  public virtual void Visit(Sort sort)
   {
-    if (sort is null)
-    {
-      throw new ArgumentNullException(nameof(sort));
-    }
+    ArgumentNullException.ThrowIfNull(sort);
 
     Fallback(sort);
   }
 
-  public void Fallback(Rel _)
+  /// <summary>
+  /// Invoked for any relational operator the visitor does not handle explicitly. Override to supply
+  /// default behaviour.
+  /// </summary>
+  protected virtual void Fallback(Rel rel)
   {
-    throw new InvalidOperationException();
+    ArgumentNullException.ThrowIfNull(rel);
+
+    throw new InvalidOperationException(
+      $"{GetType().Name} does not handle relational operator '{rel.GetType().Name}'.");
   }
 }
