@@ -18,49 +18,49 @@ public sealed class TypeCreator
     _nullable = nullable;
   }
 
-  public TypeClass Bool => new Bool { Nullable = _nullable };
+  public Bool Bool => new() { Nullable = _nullable };
 
-  public TypeClass I8 => new I8 { Nullable = _nullable };
+  public I8 I8 => new() { Nullable = _nullable };
 
-  public TypeClass I16 => new I16 { Nullable = _nullable };
+  public I16 I16 => new() { Nullable = _nullable };
 
-  public TypeClass I32 => new I32 { Nullable = _nullable };
+  public I32 I32 => new() { Nullable = _nullable };
 
-  public TypeClass I64 => new I64 { Nullable = _nullable };
+  public I64 I64 => new() { Nullable = _nullable };
 
-  public TypeClass Fp32 => new Fp32 { Nullable = _nullable };
+  public Fp32 Fp32 => new() { Nullable = _nullable };
 
-  public TypeClass Fp64 => new Fp64 { Nullable = _nullable };
+  public Fp64 Fp64 => new() { Nullable = _nullable };
 
-  public TypeClass String => new String { Nullable = _nullable };
+  public String String => new() { Nullable = _nullable };
 
-  public TypeClass Binary => new Binary { Nullable = _nullable };
+  public Binary Binary => new() { Nullable = _nullable };
 
-  public TypeClass Date => new Date { Nullable = _nullable };
+  public Date Date => new() { Nullable = _nullable };
 
-  public TypeClass IntervalYear => new IntervalYear { Nullable = _nullable };
+  public IntervalYear IntervalYear => new() { Nullable = _nullable };
 
-  public TypeClass Uuid => new Uuid { Nullable = _nullable };
+  public Uuid Uuid => new() { Nullable = _nullable };
 
-  public TypeClass FixedChar(int length)
+  public FixedChar FixedChar(int length)
   {
     ArgumentOutOfRangeException.ThrowIfNegativeOrZero(length);
     return new FixedChar { Nullable = _nullable, Length = length };
   }
 
-  public TypeClass VarChar(int length)
+  public VarChar VarChar(int length)
   {
     ArgumentOutOfRangeException.ThrowIfNegativeOrZero(length);
     return new VarChar { Nullable = _nullable, Length = length };
   }
 
-  public TypeClass FixedBinary(int length)
+  public FixedBinary FixedBinary(int length)
   {
     ArgumentOutOfRangeException.ThrowIfNegativeOrZero(length);
     return new FixedBinary { Nullable = _nullable, Length = length };
   }
 
-  public TypeClass Decimal(int precision, int scale)
+  public Decimal Decimal(int precision, int scale)
   {
     ArgumentOutOfRangeException.ThrowIfNegative(precision);
     ArgumentOutOfRangeException.ThrowIfGreaterThan(precision, MaxDecimalPrecision);
@@ -69,24 +69,24 @@ public sealed class TypeCreator
     return new Decimal { Nullable = _nullable, Precision = precision, Scale = scale };
   }
 
-  public TypeClass PrecisionTime(int precision) =>
-    new PrecisionTime { Nullable = _nullable, Precision = SubsecondPrecision(precision) };
+  public PrecisionTime PrecisionTime(int precision) =>
+    new() { Nullable = _nullable, Precision = SubsecondPrecision(precision) };
 
-  public TypeClass PrecisionTimestamp(int precision) =>
-    new PrecisionTimestamp { Nullable = _nullable, Precision = SubsecondPrecision(precision) };
+  public PrecisionTimestamp PrecisionTimestamp(int precision) =>
+    new() { Nullable = _nullable, Precision = SubsecondPrecision(precision) };
 
-  public TypeClass PrecisionTimestampTz(int precision) =>
-    new PrecisionTimestampTz { Nullable = _nullable, Precision = SubsecondPrecision(precision) };
+  public PrecisionTimestampTz PrecisionTimestampTz(int precision) =>
+    new() { Nullable = _nullable, Precision = SubsecondPrecision(precision) };
 
-  public TypeClass IntervalDay(int precision) =>
-    new IntervalDay { Nullable = _nullable, Precision = SubsecondPrecision(precision) };
+  public IntervalDay IntervalDay(int precision) =>
+    new() { Nullable = _nullable, Precision = SubsecondPrecision(precision) };
 
-  public TypeClass IntervalCompound(int precision) =>
-    new IntervalCompound { Nullable = _nullable, Precision = SubsecondPrecision(precision) };
+  public IntervalCompound IntervalCompound(int precision) =>
+    new() { Nullable = _nullable, Precision = SubsecondPrecision(precision) };
 
   private const int MaxDecimalPrecision = 38;
 
-  private const int MaxSubsecondPrecision = 9;
+  private const int MaxSubsecondPrecision = 12;
 
   private static int SubsecondPrecision(int precision)
   {
@@ -95,8 +95,8 @@ public sealed class TypeCreator
     return precision;
   }
 
-  public TypeClass Func(IReadOnlyList<TypeClass> parameterTypes, TypeClass returnType) =>
-    new Func { Nullable = _nullable, ParameterTypes = parameterTypes, ReturnType = returnType };
+  public Func Func(IReadOnlyList<TypeClass> parameterTypes, TypeClass returnType) =>
+    new() { Nullable = _nullable, ParameterTypes = parameterTypes, ReturnType = returnType };
 
   public Struct Struct(params TypeClass[] fields) =>
     new() { Nullable = _nullable, Fields = fields };
@@ -114,5 +114,5 @@ public sealed class TypeCreator
 
   public static TypeClass AsNullable(TypeClass type) => type with { Nullable = true };
 
-  public static TypeClass AsNotNullable(TypeClass type) => type with { Nullable = false };
+  public static TypeClass AsRequired(TypeClass type) => type with { Nullable = false };
 }
