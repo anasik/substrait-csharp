@@ -42,30 +42,58 @@ public sealed class TypeCreator
 
   public TypeClass Uuid => new Uuid { Nullable = _nullable };
 
-  public TypeClass FixedChar(int length) => new FixedChar { Nullable = _nullable, Length = length };
+  public TypeClass FixedChar(int length)
+  {
+    ArgumentOutOfRangeException.ThrowIfNegativeOrZero(length);
+    return new FixedChar { Nullable = _nullable, Length = length };
+  }
 
-  public TypeClass VarChar(int length) => new VarChar { Nullable = _nullable, Length = length };
+  public TypeClass VarChar(int length)
+  {
+    ArgumentOutOfRangeException.ThrowIfNegativeOrZero(length);
+    return new VarChar { Nullable = _nullable, Length = length };
+  }
 
-  public TypeClass FixedBinary(int length) =>
-    new FixedBinary { Nullable = _nullable, Length = length };
+  public TypeClass FixedBinary(int length)
+  {
+    ArgumentOutOfRangeException.ThrowIfNegativeOrZero(length);
+    return new FixedBinary { Nullable = _nullable, Length = length };
+  }
 
-  public TypeClass Decimal(int precision, int scale) =>
-    new Decimal { Nullable = _nullable, Precision = precision, Scale = scale };
+  public TypeClass Decimal(int precision, int scale)
+  {
+    ArgumentOutOfRangeException.ThrowIfNegative(precision);
+    ArgumentOutOfRangeException.ThrowIfGreaterThan(precision, MaxDecimalPrecision);
+    ArgumentOutOfRangeException.ThrowIfNegative(scale);
+    ArgumentOutOfRangeException.ThrowIfGreaterThan(scale, precision);
+    return new Decimal { Nullable = _nullable, Precision = precision, Scale = scale };
+  }
 
   public TypeClass PrecisionTime(int precision) =>
-    new PrecisionTime { Nullable = _nullable, Precision = precision };
+    new PrecisionTime { Nullable = _nullable, Precision = SubsecondPrecision(precision) };
 
   public TypeClass PrecisionTimestamp(int precision) =>
-    new PrecisionTimestamp { Nullable = _nullable, Precision = precision };
+    new PrecisionTimestamp { Nullable = _nullable, Precision = SubsecondPrecision(precision) };
 
   public TypeClass PrecisionTimestampTz(int precision) =>
-    new PrecisionTimestampTz { Nullable = _nullable, Precision = precision };
+    new PrecisionTimestampTz { Nullable = _nullable, Precision = SubsecondPrecision(precision) };
 
   public TypeClass IntervalDay(int precision) =>
-    new IntervalDay { Nullable = _nullable, Precision = precision };
+    new IntervalDay { Nullable = _nullable, Precision = SubsecondPrecision(precision) };
 
   public TypeClass IntervalCompound(int precision) =>
-    new IntervalCompound { Nullable = _nullable, Precision = precision };
+    new IntervalCompound { Nullable = _nullable, Precision = SubsecondPrecision(precision) };
+
+  private const int MaxDecimalPrecision = 38;
+
+  private const int MaxSubsecondPrecision = 9;
+
+  private static int SubsecondPrecision(int precision)
+  {
+    ArgumentOutOfRangeException.ThrowIfNegative(precision);
+    ArgumentOutOfRangeException.ThrowIfGreaterThan(precision, MaxSubsecondPrecision);
+    return precision;
+  }
 
   public TypeClass Func(IReadOnlyList<TypeClass> parameterTypes, TypeClass returnType) =>
     new Func { Nullable = _nullable, ParameterTypes = parameterTypes, ReturnType = returnType };
