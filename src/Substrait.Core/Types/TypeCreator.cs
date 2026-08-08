@@ -102,7 +102,7 @@ public sealed class TypeCreator
     new() { Nullable = _nullable, Fields = fields };
 
   public Struct Struct(IEnumerable<TypeClass> fields) =>
-    new() { Nullable = _nullable, Fields = fields.ToList() };
+    new() { Nullable = _nullable, Fields = fields.ToArray() };
 
   public List List(TypeClass elementType) =>
     new() { Nullable = _nullable, ElementType = elementType };

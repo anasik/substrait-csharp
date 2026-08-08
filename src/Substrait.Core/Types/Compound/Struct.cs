@@ -2,12 +2,19 @@
 
 public sealed record Struct : TypeClass
 {
-  public required IReadOnlyList<TypeClass> Fields { get; init; }
+  private readonly TypeClass[] _fields = [];
+
+  public required IReadOnlyList<TypeClass> Fields
+  {
+    get => _fields;
+    init => _fields = value.ToArray();
+  }
 
   public override TResult Accept<TResult>(ITypeVisitor<TResult> visitor) => visitor.Visit(this);
 
   public bool Equals(Struct? other) =>
-    other is not null && Nullable == other.Nullable && Fields.SequenceEqual(other.Fields);
+    ReferenceEquals(this, other)
+    || (other is not null && Nullable == other.Nullable && Fields.SequenceEqual(other.Fields));
 
   public override int GetHashCode()
   {
