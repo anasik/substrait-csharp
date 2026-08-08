@@ -8,7 +8,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Protobuf Include="../../substrait/proto/substrait/**/*.proto" ProtoRoot="../../substrait/proto/" CompileOutputs="false" OutputDir="generated/proto/" GrpcServices="None" />
+    <Protobuf Include="../../substrait/proto/substrait/**/*.proto" ProtoRoot="../../substrait/proto/" CompileOutputs="true" OutputDir="generated/proto/" GrpcServices="None" />
   </ItemGroup>
 
 
