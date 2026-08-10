@@ -4,7 +4,7 @@ using Substrait.Core.Types.Simple;
 using Decimal = Substrait.Core.Types.Compound.Decimal;
 using String = Substrait.Core.Types.Simple.String;
 
-namespace Substrait.Core.Tests.Type;
+namespace Substrait.Core.Tests.Types;
 
 public class TypeVisitorTests
 {

@@ -1,7 +1,7 @@
 ﻿using Substrait.Core.Types;
 using Substrait.Core.Types.Compound;
 
-namespace Substrait.Core.Tests.Type;
+namespace Substrait.Core.Tests.Types;
 
 public class StructuralEqualityTests
 {
