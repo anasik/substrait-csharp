@@ -1,107 +1,92 @@
-﻿using Substrait.Relation;
+﻿using Substrait.Core.Relation;
 
-namespace Substrait.Core
+namespace Substrait.Core;
+
+/// <summary>
+/// Visitor to transform, compile, and/or process SQL logical operators represented using Substrait. The visitor has
+/// methods for visiting relation operator objects as input and provides concrete implementation to meet its goals.
+/// </summary>
+public abstract class SubstraitRelVisitor
 {
   /// <summary>
-  /// Visitor to transform, compile, and/or process SQL logical operators represented using Substrait. The visitor has
-  /// methods for visiting relation operator objects as input and provides concrete implementation to meet its goals.
+  /// Visit relational operator of type AGGREGATE
   /// </summary>
-  public abstract class SubstraitRelVisitor
+  public virtual void Visit(Aggregate aggregate)
   {
-    /// <summary>
-    /// Visit relational operator of type AGGREGATE
-    /// </summary>
-    public void Visit(Aggregate aggregate)
-    {
-      if (aggregate is null)
-      {
-        throw new ArgumentNullException(nameof(aggregate));
-      }
+    ArgumentNullException.ThrowIfNull(aggregate);
 
-      Fallback(aggregate);
-    }
+    Fallback(aggregate);
+  }
 
-    /// <summary>
-    /// Visit relational operator of type FETCH
-    /// </summary>
-    public void Visit(Fetch fetch)
-    {
-      if (fetch is null)
-      {
-        throw new ArgumentNullException(nameof(fetch));
-      }
+  /// <summary>
+  /// Visit relational operator of type FETCH
+  /// </summary>
+  public virtual void Visit(Fetch fetch)
+  {
+    ArgumentNullException.ThrowIfNull(fetch);
 
-      Fallback(fetch);
-    }
+    Fallback(fetch);
+  }
 
-    /// <summary>
-    /// Visit relational operator of type FILTER
-    /// </summary>
-    public void Visit(Filter filter)
-    {
-      if (filter is null)
-      {
-        throw new ArgumentNullException(nameof(filter));
-      }
+  /// <summary>
+  /// Visit relational operator of type FILTER
+  /// </summary>
+  public virtual void Visit(Filter filter)
+  {
+    ArgumentNullException.ThrowIfNull(filter);
 
-      Fallback(filter);
-    }
+    Fallback(filter);
+  }
 
-    /// <summary>
-    /// Visit relational operator of type JOIN
-    /// </summary>
-    public void Visit(Join join)
-    {
-      if (join is null)
-      {
-        throw new ArgumentNullException(nameof(join));
-      }
+  /// <summary>
+  /// Visit relational operator of type JOIN
+  /// </summary>
+  public virtual void Visit(Join join)
+  {
+    ArgumentNullException.ThrowIfNull(join);
 
-      Fallback(join);
-    }
+    Fallback(join);
+  }
 
-    /// <summary>
-    /// Visit relational operator of type PROJECT
-    /// </summary>
-    public void Visit(Project project)
-    {
-      if (project is null)
-      {
-        throw new ArgumentNullException(nameof(project));
-      }
+  /// <summary>
+  /// Visit relational operator of type PROJECT
+  /// </summary>
+  public virtual void Visit(Project project)
+  {
+    ArgumentNullException.ThrowIfNull(project);
 
-      Fallback(project);
-    }
+    Fallback(project);
+  }
 
-    /// <summary>
-    /// Visit relational operator of type READ
-    /// </summary>
-    public void Visit(Read read)
-    {
-      if (read is null)
-      {
-        throw new ArgumentNullException(nameof(read));
-      }
+  /// <summary>
+  /// Visit relational operator of type READ
+  /// </summary>
+  public virtual void Visit(Read read)
+  {
+    ArgumentNullException.ThrowIfNull(read);
 
-      Fallback(read);
-    }
+    Fallback(read);
+  }
 
-    /// <summary>
-    /// Visit relational operator of type SORT
-    /// </summary>
-    public void Visit(Sort sort)
-    {
-      if (sort is null)
-      {
-        throw new ArgumentNullException(nameof(sort));
-      }
+  /// <summary>
+  /// Visit relational operator of type SORT
+  /// </summary>
+  public virtual void Visit(Sort sort)
+  {
+    ArgumentNullException.ThrowIfNull(sort);
 
-      Fallback(sort);
-    }
+    Fallback(sort);
+  }
 
-    public void Fallback(Rel _)
-    {
-      throw new InvalidOperationException();
-    }
+  /// <summary>
+  /// Invoked for any relational operator the visitor does not handle explicitly. Override to supply
+  /// default behaviour.
+  /// </summary>
+  protected virtual void Fallback(Rel rel)
+  {
+    ArgumentNullException.ThrowIfNull(rel);
+
+    throw new InvalidOperationException(
+      $"{GetType().Name} does not handle relational operator '{rel.GetType().Name}'.");
   }
 }
