@@ -2,7 +2,7 @@
 using Substrait.Core.Types.Compound;
 using Decimal = Substrait.Core.Types.Compound.Decimal;
 
-namespace Substrait.Core.Tests.Type;
+namespace Substrait.Core.Tests.Types;
 
 public class TypeCreatorTests
 {
